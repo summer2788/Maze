@@ -3,7 +3,15 @@ guid: 230fba9ce47eb844ca5c71900a32b9c8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - passagePrefab: {instanceID: 0}
+  - wallPrefab: {instanceID: 0}
+  - cellPrefab: {instanceID: 0}
+  - cellGoalPrefab: {instanceID: 0}
+  - cellStartPrefab: {instanceID: 0}
+  - bananaPrefab: {instanceID: 0}
+  - cheesePrefab: {instanceID: 0}
+  - burgerPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

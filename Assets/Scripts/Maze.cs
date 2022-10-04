@@ -13,6 +13,8 @@ public class Maze : MonoBehaviour
     public IntVector2 size;
 
     public MazeCell cellPrefab;
+    public MazeCell cellGoalPrefab;
+    public MazeCell cellStartPrefab;
 
     public Item bananaPrefab;
     public Item cheesePrefab;
@@ -51,6 +53,7 @@ public class Maze : MonoBehaviour
 
     public MazeCell GetCell(IntVector2 coordinates)
     {
+    
         return cells[coordinates.x, coordinates.z];
     }
 
@@ -78,19 +81,19 @@ public class Maze : MonoBehaviour
                 if (currentCell == null)
                 {
                     currentCell=CreateCell(new IntVector2(x, z));
-                    if(x==0 && z==0){
-                        currentCell.transform.GetChild(0).GetComponent<Renderer>().material.color=Color.red;
+                    // if(x==0 && z==0){
+                    //     currentCell.transform.GetChild(0).GetComponent<Renderer>().material.color=Color.red;
                         
-                    }
+                    // }
 
                    
 
                     
                 }
 
-                if(x==4 && z==4){
-                        currentCell.transform.GetChild(0).GetComponent<Renderer>().material.color=Color.blue;
-                    }
+                // if(x==4 && z==4){
+                //         currentCell.transform.GetChild(0).GetComponent<Renderer>().material.color=Color.blue;
+                //     }
 
 
                 if (currentCell.IsFullyInitialized)  //벽 생성 다됐다면 넘어감
@@ -243,7 +246,20 @@ public class Maze : MonoBehaviour
 
     private MazeCell CreateCell(IntVector2 coordinates)
     {
-        MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
+        MazeCell newCell;
+        
+         if(coordinates.x==0 && coordinates.z==0 ){
+             newCell = Instantiate(cellStartPrefab) as MazeCell;
+      
+        }
+        else if(coordinates.x==4 && coordinates.z==4 ){
+             newCell = Instantiate(cellGoalPrefab) as MazeCell;
+        }
+        else{
+              newCell = Instantiate(cellPrefab) as MazeCell;
+
+        }
+        // MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
       
         cells[coordinates.x, coordinates.z] = newCell;
         newCell.coordinates = coordinates;

@@ -49,6 +49,10 @@ MonoBehaviour:
     type: 3}
   cellPrefab: {fileID: 7277747926672076403, guid: 3e1f463a79e697347a7b4fb723f2e2db,
     type: 3}
+  cellGoalPrefab: {fileID: 8934453995639212005, guid: 15ff1b689b95746f69a0b3dadb7d5961,
+    type: 3}
+  cellStartPrefab: {fileID: 1217696249590500537, guid: eb97cf93c95364c8ea0a50bf19eb9763,
+    type: 3}
   bananaPrefab: {fileID: 5846411490145925228, guid: a12179270d3fc014a91f4c1a8c78a274,
     type: 3}
   cheesePrefab: {fileID: -7390120114131791867, guid: 4789f8304da4216418e280be2334e31c,
