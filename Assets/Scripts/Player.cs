@@ -62,9 +62,11 @@ public class Player : MonoBehaviour
         
         sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item");
         //StartCoroutine("CountTime",2);
+        currentDirection=MazeDirection.South;
+        Debug.Log(currentDirection);
+        transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
 
     }
-
 
     // IEnumerator CountTime(float delayTime)
     // {
@@ -173,11 +175,10 @@ public class Player : MonoBehaviour
         {
           
 
-            if (Input.GetKeyDown(KeyCode.Alpha4)) //go forward 
+            if (Input.GetKeyDown(KeyCode.UpArrow)) //go forward 
             {
                 if(isMove & isTurn){
                 isMove=false;
-                Debug.Log(isMove);
                 sw.WriteLine("4" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
                 Move(currentDirection);
 
@@ -194,22 +195,24 @@ public class Player : MonoBehaviour
                     
                 //}
             }
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 if(isTurn){
                 isTurn=false;
                 tempDirection = currentDirection.GetNextCounterclockwise();
+                Debug.Log(tempDirection);
                 Look(currentDirection.GetNextCounterclockwise());
                 sw.WriteLine("1" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
 
                 }
                 
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 if(isTurn){
                 isTurn=false;
                 tempDirection = currentDirection.GetNextClockwise();
+                Debug.Log(tempDirection);
                 Look(currentDirection.GetNextClockwise());
                 sw.WriteLine("2" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
 
@@ -232,7 +235,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-             if (currentCell.name == "Maze Cell 0 0")
+             if (currentCell.name == "Maze Cell 4 4")
             {
                 sw.Flush();
                 sw.Close();

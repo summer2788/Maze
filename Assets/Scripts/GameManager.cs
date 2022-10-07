@@ -60,8 +60,8 @@ public class GameManager : MonoBehaviour
         mazeInstance.Generate();
         //yield return StartCoroutine(mazeInstance.Generate());
         playerInstance = Instantiate(playerPrefab) as Player;
-        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(4, 4)).transform.localPosition;  
-        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(4, 4)));
+        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 0)).transform.localPosition;  
+        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(0, 0)));
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
@@ -77,10 +77,11 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = "Score: " + score;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //normal mode 
         {
             RestartGame();
         }
+        
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             if (overheadCameraOn == false)
