@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Maze : MonoBehaviour
 {
-
+    
     
 
     public MazePassage passagePrefab;
