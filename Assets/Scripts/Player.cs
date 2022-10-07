@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
         {
           
 
-            if (Input.GetKeyDown(KeyCode.Alpha4)) //go forward 
+            if (Input.GetKeyDown(KeyCode.UpArrow)) //go forward 
             {
                 if(isMove & isTurn){
                 isMove=false;
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
                     
                 //}
             }
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 if(isTurn){
                 isTurn=false;
@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
                 }
                 
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 if(isTurn){
                 isTurn=false;
