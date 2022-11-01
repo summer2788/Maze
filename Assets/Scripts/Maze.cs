@@ -357,7 +357,7 @@ public class Maze : MonoBehaviour
     {
         Item portal = Instantiate(portalPrefab1) as Item;
         portal.coordinates = coordinates;
-        portal.name = " portal ";
+        portal.name = "portal1";
         portal.transform.parent = transform;
         portal.transform.localPosition =
             new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
@@ -370,7 +370,7 @@ public class Maze : MonoBehaviour
     {
         Item portal = Instantiate(portalPrefab2) as Item;
         portal.coordinates = coordinates;
-        portal.name = " portal ";
+        portal.name = "portal2";
         portal.transform.parent = transform;
         portal.transform.localPosition =
             new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);

@@ -13,13 +13,13 @@ public class GameManager : MonoBehaviour
 
     public Maze mazePrefab2;
 
-    private Maze mazeInstance;
+    public Maze mazeInstance;
 
-    private Maze mazeInstance2;
+    public Maze mazeInstance2;
 
     public Player playerPrefab;
 
-    private Player playerInstance;
+    public Player playerInstance;
 
     public Camera directionalCamera;
 

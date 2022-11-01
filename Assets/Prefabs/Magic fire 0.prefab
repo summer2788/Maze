@@ -14460,6 +14460,7 @@ GameObject:
   - component: {fileID: 198371139109276902}
   - component: {fileID: 199651328102623302}
   - component: {fileID: 4415498055680365677}
+  - component: {fileID: 4128345228346652049}
   m_Layer: 0
   m_Name: Magic fire 0
   m_TagString: Untagged
@@ -19280,3 +19281,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d070e24c7390f54daa46d8d74c1ad57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &4128345228346652049
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692517446758730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

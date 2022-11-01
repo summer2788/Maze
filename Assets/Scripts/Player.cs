@@ -6,14 +6,14 @@ using System.IO;
 public class Player : MonoBehaviour
 {
 
-    private MazeCell currentCell;
+    public MazeCell currentCell;
     public GameObject item;
 
     private MazeDirection currentDirection;
     private MazeDirection tempDirection;
 
-    private bool isMove;
-    private bool isTurn;
+    public bool isMove;
+    public bool isTurn;
     public bool isPick;
     private bool isThrow;
     private bool isContact; //아이템과의 접촉 여부
@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     StreamReader SR;
     string fullpth = "Assets/Resources/test1";
     StreamWriter sw;
+
+    public IEnumerator coroutine;
 
     Stack<GameObject> pickedlist;
 
@@ -142,7 +144,8 @@ public class Player : MonoBehaviour
 
     private void Look(MazeDirection direction)
     {
-        StartCoroutine(Slowturn(direction.ToRotation()));
+        coroutine=Slowturn(direction.ToRotation());
+        StartCoroutine(coroutine);
         //transform.localRotation = direction.ToRotation();
         //GameManager.instance.directionalCamera.transform.localRotation = direction.ToRotation() * Quaternion.Euler(new Vector3(90, 0, 0));
         currentDirection = direction;
@@ -151,7 +154,8 @@ public class Player : MonoBehaviour
     public void SetLocation(MazeCell cell)
     {
         currentCell = cell;
-        StartCoroutine(Slowmove(cell.transform.localPosition));
+        coroutine=Slowmove(cell.transform.position);
+        StartCoroutine(coroutine);
         //transform.localPosition = cell.transform.localPosition;
     }
 
@@ -235,13 +239,13 @@ public class Player : MonoBehaviour
                 }
             }
 
-             if (currentCell.name == "Maze Cell 4 4")
-            {
-                sw.Flush();
-                sw.Close();
-                GameManager.instance.isGameover = true;
+            //  if (currentCell.name == "Maze Cell 4 4")
+            // {
+            //     sw.Flush();
+            //     sw.Close();
+            //     GameManager.instance.isGameover = true;
 
-            }
+            // }
         }
 
 
@@ -322,6 +326,8 @@ public class Player : MonoBehaviour
     {
         isContact = false;
     }
+    
+    
 
 }
 
