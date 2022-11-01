@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3798155884155112810}
   - component: {fileID: 8062271063816501355}
   m_Layer: 0
-  m_Name: Maze
+  m_Name: Maze 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passagePrefab: {fileID: 6251672231655693780, guid: c96f005c5f92f684a9c7d71f0c88a2b6,
     type: 3}
-  wallPrefab: {fileID: -7837210925646084859, guid: 87e936a7e302547c185822aeff69101e,
+  wallPrefab: {fileID: -7837210925646084859, guid: 48d215469e47448f486f1c577638af86,
     type: 3}
-  cellPrefab: {fileID: 6919211243199404496, guid: a0c1217a39aa6415ca468d3b9feb24e4,
+  cellPrefab: {fileID: 6919211243199404496, guid: 7460cde9cd80b4a25847f714c25ef582,
     type: 3}
   cellGoalPrefab: {fileID: 8934453995639212005, guid: 15ff1b689b95746f69a0b3dadb7d5961,
     type: 3}

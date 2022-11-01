@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - mazePrefab: {fileID: 8062271063816501355, guid: 618241d94ae4b0d40a18c03eee5d9c17,
       type: 3}
+  - mazePrefab2: {fileID: 8062271063816501355, guid: 360ca522f0d644593bb3b74a3a9f8a29,
+      type: 3}
   - playerPrefab: {instanceID: 0}
   - directionalCamera: {instanceID: 0}
   - gameoverText: {instanceID: 0}

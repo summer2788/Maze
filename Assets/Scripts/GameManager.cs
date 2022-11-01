@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
 
     public Maze mazePrefab;
 
+    public Maze mazePrefab2;
+
     private Maze mazeInstance;
+
+    private Maze mazeInstance2;
 
     public Player playerPrefab;
 
@@ -57,7 +61,10 @@ public class GameManager : MonoBehaviour
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
         //Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
         mazeInstance = Instantiate(mazePrefab) as Maze;
+        mazeInstance2 = Instantiate(mazePrefab2) as Maze;
         mazeInstance.Generate();
+        mazeInstance2.Generate();
+        mazeInstance2.transform.position=new Vector3(6,0,0);
         //yield return StartCoroutine(mazeInstance.Generate());
         playerInstance = Instantiate(playerPrefab) as Player;
         playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 0)).transform.localPosition;  

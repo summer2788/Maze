@@ -16,10 +16,12 @@ public class Maze : MonoBehaviour
     public MazeCell cellPrefab;
     public MazeCell cellGoalPrefab;
     public MazeCell cellStartPrefab;
+   
 
     public Item bananaPrefab;
     public Item cheesePrefab;
     public Item burgerPrefab;
+    public Item portalPrefab;
 
     private MazeCell[,] cells;
 
@@ -122,6 +124,10 @@ public class Maze : MonoBehaviour
                 else if ((int)data_Dialog[count]["item"] == 3)
                 {
                     CreateBurger(new IntVector2(x, z));
+                }
+                else if ((int)data_Dialog[count]["item"] == 4)
+                {
+                    CreatePortal(new IntVector2(x, z));
                 }
 
                 count++;
@@ -255,6 +261,7 @@ public class Maze : MonoBehaviour
         }
         else if(coordinates.x==4 && coordinates.z==4 ){
              newCell = Instantiate(cellGoalPrefab) as MazeCell;
+             
         }
         else{
               newCell = Instantiate(cellPrefab) as MazeCell;
@@ -307,6 +314,19 @@ public class Maze : MonoBehaviour
             new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
 
         return burger;
+
+    }
+
+      private Item CreatePortal(IntVector2 coordinates)
+    {
+        Item portal = Instantiate(portalPrefab) as Item;
+        portal.coordinates = coordinates;
+        portal.name = " portal ";
+        portal.transform.parent = transform;
+        portal.transform.localPosition =
+            new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
+
+        return portal;
 
     }
 

@@ -633,6 +633,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 8062271063816501355, guid: 618241d94ae4b0d40a18c03eee5d9c17,
     type: 3}
+  mazePrefab2: {fileID: 8062271063816501355, guid: 360ca522f0d644593bb3b74a3a9f8a29,
+    type: 3}
   playerPrefab: {fileID: 3252710644810216577, guid: 21b53c83bb6baaf47bd1ad200f760bd2,
     type: 3}
   directionalCamera: {fileID: 5225068477495999534}
