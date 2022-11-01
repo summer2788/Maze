@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passagePrefab: {fileID: 6251672231655693780, guid: c96f005c5f92f684a9c7d71f0c88a2b6,
     type: 3}
-  wallPrefab: {fileID: 7997814521098045390, guid: 800bdb4694be82749b8946d090b26484,
+  wallPrefab: {fileID: -7837210925646084859, guid: 87e936a7e302547c185822aeff69101e,
     type: 3}
-  cellPrefab: {fileID: 7277747926672076403, guid: 3e1f463a79e697347a7b4fb723f2e2db,
+  cellPrefab: {fileID: 6919211243199404496, guid: a0c1217a39aa6415ca468d3b9feb24e4,
     type: 3}
   cellGoalPrefab: {fileID: 8934453995639212005, guid: 15ff1b689b95746f69a0b3dadb7d5961,
     type: 3}

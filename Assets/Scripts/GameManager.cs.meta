@@ -3,7 +3,13 @@ guid: f06fabbbfbeb3c5459c96aba313548f9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mazePrefab: {fileID: 8062271063816501355, guid: 618241d94ae4b0d40a18c03eee5d9c17,
+      type: 3}
+  - playerPrefab: {instanceID: 0}
+  - directionalCamera: {instanceID: 0}
+  - gameoverText: {instanceID: 0}
+  - scoreText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
