@@ -641,6 +641,7 @@ MonoBehaviour:
   gameoverText: {fileID: 830121598}
   scoreText: {fileID: 320466895}
   score: 0
+  csv: 
   isGameover: 0
 --- !u!4 &877091160
 Transform:

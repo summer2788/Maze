@@ -28,9 +28,12 @@ public class GameManager : MonoBehaviour
 
     public int score;
 
+    public string csv;
+
     private bool cameraOn = true;
     private bool overheadCameraOn = false;
     public bool isGameover;
+
 
 
     private void Awake()
@@ -60,7 +63,9 @@ public class GameManager : MonoBehaviour
         Camera.main.clearFlags = CameraClearFlags.Skybox;
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
         //Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
+        csv="Maze_1";
         mazeInstance = Instantiate(mazePrefab) as Maze;
+        csv="Maze_2";
         mazeInstance2 = Instantiate(mazePrefab2) as Maze;
         mazeInstance.Generate();
         mazeInstance2.Generate();

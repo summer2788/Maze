@@ -49,16 +49,18 @@ MonoBehaviour:
     type: 3}
   cellPrefab: {fileID: 6919211243199404496, guid: a0c1217a39aa6415ca468d3b9feb24e4,
     type: 3}
-  cellGoalPrefab: {fileID: 8934453995639212005, guid: 15ff1b689b95746f69a0b3dadb7d5961,
-    type: 3}
-  cellStartPrefab: {fileID: 1217696249590500537, guid: eb97cf93c95364c8ea0a50bf19eb9763,
-    type: 3}
   bananaPrefab: {fileID: 5846411490145925228, guid: a12179270d3fc014a91f4c1a8c78a274,
     type: 3}
   cheesePrefab: {fileID: -7390120114131791867, guid: 4789f8304da4216418e280be2334e31c,
     type: 3}
   burgerPrefab: {fileID: 2003733745744540648, guid: 99fb7996a250af5479f5d30508cf4061,
     type: 3}
-  portalPrefab: {fileID: 1013960281785421633, guid: 12be955edf8b3be46a83381b0d15bd58,
+  portalPrefab1: {fileID: 4415498055680365677, guid: 08fd1b80cc24cc8439f45fda3c558255,
+    type: 3}
+  portalPrefab2: {fileID: 8729379406065134472, guid: 25093a0593dc83043a7bc17ebba0e95d,
+    type: 3}
+  cellGoalPrefab: {fileID: 1325543063182621305, guid: 15ff1b689b95746f69a0b3dadb7d5961,
+    type: 3}
+  cellStartPrefab: {fileID: 7988048780537342771, guid: eb97cf93c95364c8ea0a50bf19eb9763,
     type: 3}
   generationStepDelay: 0

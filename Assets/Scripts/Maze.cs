@@ -14,14 +14,16 @@ public class Maze : MonoBehaviour
     public IntVector2 size;
 
     public MazeCell cellPrefab;
-    public MazeCell cellGoalPrefab;
-    public MazeCell cellStartPrefab;
+    
    
 
     public Item bananaPrefab;
     public Item cheesePrefab;
     public Item burgerPrefab;
-    public Item portalPrefab;
+    public Item portalPrefab1;
+    public Item portalPrefab2;
+    public Item cellGoalPrefab;
+    public Item cellStartPrefab;
 
     private MazeCell[,] cells;
 
@@ -31,7 +33,7 @@ public class Maze : MonoBehaviour
 
     void Awake()
     {
-        data_Dialog = CSVReader.Read("Maze_1");
+        data_Dialog = CSVReader.Read(GameManager.instance.csv);
 
         //for (int i = 0; i < data_Dialog.Count; i++)
         //{
@@ -127,7 +129,15 @@ public class Maze : MonoBehaviour
                 }
                 else if ((int)data_Dialog[count]["item"] == 4)
                 {
-                    CreatePortal(new IntVector2(x, z));
+                    CreatePortal1(new IntVector2(x, z));
+                }
+                else if ((int)data_Dialog[count]["item"] == 5)
+                {
+                    CreatePortal2(new IntVector2(x, z));
+                }
+                else if ((int)data_Dialog[count]["item"] == 6)
+                {
+                    CreateStartCell(new IntVector2(x, z));
                 }
 
                 count++;
@@ -255,26 +265,52 @@ public class Maze : MonoBehaviour
     {
         MazeCell newCell;
         
-         if(coordinates.x==0 && coordinates.z==0 ){
-             newCell = Instantiate(cellStartPrefab) as MazeCell;
+        //  if(coordinates.x==0 && coordinates.z==0 ){
+        //      newCell = Instantiate(cellStartPrefab) as MazeCell;
       
-        }
-        else if(coordinates.x==4 && coordinates.z==4 ){
-             newCell = Instantiate(cellGoalPrefab) as MazeCell;
+        // }
+        // else if(coordinates.x==4 && coordinates.z==4 ){
+        //      newCell = Instantiate(cellGoalPrefab) as MazeCell;
              
-        }
-        else{
-              newCell = Instantiate(cellPrefab) as MazeCell;
+        // }
+        // else{
+        //       newCell = Instantiate(cellPrefab) as MazeCell;
 
-        }
+        // }
         // MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
-      
+        newCell = Instantiate(cellPrefab) as MazeCell;
         cells[coordinates.x, coordinates.z] = newCell;
         newCell.coordinates = coordinates;
         newCell.name = "Maze Cell " + coordinates.x + " " + coordinates.z;
         newCell.transform.parent = transform;
         newCell.transform.localPosition =new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
         return newCell;
+    }
+
+     private Item CreateStartCell(IntVector2 coordinates)
+    {
+        Item startcell= Instantiate(cellStartPrefab) as Item;
+        startcell.coordinates= coordinates;
+        startcell.name= " startcell ";
+        startcell.transform.parent = transform;
+        startcell.transform.localPosition =
+            new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
+
+        return startcell;
+
+    }
+
+    private Item CreateGoalCell(IntVector2 coordinates)
+    {
+        Item goalcell= Instantiate(cellGoalPrefab) as Item;
+        goalcell.coordinates= coordinates;
+        goalcell.name= " goalcell ";
+        goalcell.transform.parent = transform;
+        goalcell.transform.localPosition =
+            new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
+
+        return goalcell;
+
     }
 
 
@@ -317,9 +353,22 @@ public class Maze : MonoBehaviour
 
     }
 
-      private Item CreatePortal(IntVector2 coordinates)
+      private Item CreatePortal1(IntVector2 coordinates)
     {
-        Item portal = Instantiate(portalPrefab) as Item;
+        Item portal = Instantiate(portalPrefab1) as Item;
+        portal.coordinates = coordinates;
+        portal.name = " portal ";
+        portal.transform.parent = transform;
+        portal.transform.localPosition =
+            new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
+
+        return portal;
+
+    }
+
+    private Item CreatePortal2(IntVector2 coordinates)
+    {
+        Item portal = Instantiate(portalPrefab2) as Item;
         portal.coordinates = coordinates;
         portal.name = " portal ";
         portal.transform.parent = transform;
