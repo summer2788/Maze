@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
     {
         isGameover = false;
 
-        if(score>12){
+        if(score>=12){
             score = 0;
             step+=1;
 
@@ -245,6 +245,8 @@ public class GameManager : MonoBehaviour
 
 
         }else if(step==4){
+
+            sw.WriteLine("Phase3 : done");
 
             //한 phase 가 끝남 test 저장 
             sw.Flush();
