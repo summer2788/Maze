@@ -20,9 +20,9 @@ public class Player : MonoBehaviour
 
     private string direction;
     private string itemName;
-    StreamReader SR;
-    string fullpth = "Assets/Resources/test1";
-    StreamWriter sw;
+    
+    
+    
 
     public IEnumerator coroutine;
 
@@ -39,19 +39,13 @@ public class Player : MonoBehaviour
 
         //  if (false == File.Exists(fullpth))
         // {
-        //     sw = new StreamWriter(fullpth);
+        //     GameManager.instance.sw = new StreamWriter(fullpth);
         // }
         // else{
-        //        sw= File.AppendText(fullpth);
+        //        GameManager.instance.sw= File.AppendText(fullpth);
         // }
 
-        if (false == File.Exists(fullpth + ".csv"))
-        {
-            sw = new StreamWriter(fullpth + ".csv");
-        }
-        else{
-               sw= File.AppendText(fullpth + ".csv");
-        }
+        
     }
     public void Start()
     {
@@ -62,7 +56,7 @@ public class Player : MonoBehaviour
         isPick = true;
         isThrow= true;
         
-        sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item");
+        GameManager.instance.sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item");
         //StartCoroutine("CountTime",2);
         currentDirection=MazeDirection.South;
         Debug.Log(currentDirection);
@@ -93,14 +87,14 @@ public class Player : MonoBehaviour
     //     if (currentCell.name == "Maze Cell 0 0")
     //     {
     //         StopCoroutine("CountTime");
-    //         sw.Flush();
-    //         sw.Close();
+    //         GameManager.instance.sw.Flush();
+    //         GameManager.instance.sw.Close();
     //         GameManager.instance.isGameover = true;
 
     //     }
 
     //     if(!GameManager.instance.isGameover)
-    //         sw.WriteLine("S" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+    //         GameManager.instance.sw.WriteLine("S" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
 
     //     yield return new WaitForSecondsRealtime(delayTime);
     //     StartCoroutine("CountTime",2);
@@ -183,7 +177,7 @@ public class Player : MonoBehaviour
             {
                 if(isMove & isTurn){
                 isMove=false;
-                sw.WriteLine("4" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("4" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
                 Move(currentDirection);
 
                 }
@@ -193,8 +187,8 @@ public class Player : MonoBehaviour
                 //if (currentCell.name == "Maze Cell 0 0")
                 //{
                 //    StopCoroutine("CountTime");
-                //    sw.Flush();
-                //    sw.Close();
+                //    GameManager.instance.sw.Flush();
+                //    GameManager.instance.sw.Close();
                 //    GameManager.instance.isGameover = true;
                     
                 //}
@@ -206,7 +200,7 @@ public class Player : MonoBehaviour
                 tempDirection = currentDirection.GetNextCounterclockwise();
                 Debug.Log(tempDirection);
                 Look(currentDirection.GetNextCounterclockwise());
-                sw.WriteLine("1" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("1" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
 
                 }
                 
@@ -218,7 +212,7 @@ public class Player : MonoBehaviour
                 tempDirection = currentDirection.GetNextClockwise();
                 Debug.Log(tempDirection);
                 Look(currentDirection.GetNextClockwise());
-                sw.WriteLine("2" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("2" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
 
                 }
                 
@@ -235,14 +229,14 @@ public class Player : MonoBehaviour
                         itemName = item.name;
                         throwItem();
                     }
-                    sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
                 }
             }
 
             //  if (currentCell.name == "Maze Cell 4 4")
             // {
-            //     sw.Flush();
-            //     sw.Close();
+            //     GameManager.instance.sw.Flush();
+            //     GameManager.instance.sw.Close();
             //     GameManager.instance.isGameover = true;
 
             // }
@@ -291,7 +285,20 @@ public class Player : MonoBehaviour
         pickedlist.Push(item);
         item.SetActive(false);
         isContact = false;
-        GameManager.instance.score += 1;
+        if(item.name == " banana ")
+        {
+
+            GameManager.instance.score += 1;
+
+
+        }else if(item.name == " burger ")
+        {
+
+            GameManager.instance.score += 4;
+
+
+        }
+        
     }
 
     public void throwItem()
@@ -305,17 +312,73 @@ public class Player : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (Input.GetKeyDown(KeyCode.Alpha3)) // 아이템 줍기
-        {
+        // if (Input.GetKeyDown(KeyCode.Alpha3)) // 아이템 줍기
+        // {
             
-            item = other.gameObject;
-            itemName = other.name;
-            pickUp(item);
-            sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+        //     item = other.gameObject;
+        //     itemName = other.name;
+        //     pickUp(item);
+        //     GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+        //     GameManager.instance.isGameover=true;
+        // }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha2)) // teleport 
+        {
+            //Debug.Log(1);
+
+            
+            
+            if(other.name=="portal1" )
+            {
+                
+                StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                GameManager.instance.playerInstance.gameObject.SetActive(false);
+                GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position;  
+                GameManager.instance.playerInstance.gameObject.SetActive(true);
+                GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0));
+                GameManager.instance.playerInstance.isMove=true;
+                StartCoroutine(coroutine);
+
+                
+
+            }else if(other.name == "portal2")
+            {
+             
+                StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                GameManager.instance.playerInstance.gameObject.SetActive(false);
+                GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4)).transform.position;  
+                GameManager.instance.playerInstance.gameObject.SetActive(true);
+                GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4));
+                GameManager.instance.playerInstance.isMove=true;
+                //Debug.Log(coroutine);
+                StartCoroutine(coroutine);
+            }else if(other.name == " banana ")
+            {
+                item = other.gameObject;
+                itemName = other.name;
+                pickUp(item);
+                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.isGameover=true;
+
+               
+            }
+            else if(other.name == " burger ")
+            {
+                item = other.gameObject;
+                itemName = other.name;
+                pickUp(item);
+                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.isGameover=true;
+
+
+            }
+           
         }
 
         
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
