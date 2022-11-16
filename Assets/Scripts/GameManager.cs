@@ -32,9 +32,15 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameoverText;
     public Text scoreText;
+    public Image phase1;
+    public Image phase2;
+    public Image phase3;
+    public Image done;
 
     public int score;
+    public int phase;
     public int step;
+    
 
     public string csv;
     
@@ -69,10 +75,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
+        phase=1;
         step=1;
+        sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item"+ "," + "phase"+ "," + "step"+ "," + "score");
+       
         isGameover = false;
         directionalCamera.rect = new Rect(0f, 0f, 0f, 0f);
+        phase1.gameObject.SetActive(true);
         //StartCoroutine(BeginGame());
+        GameManager.instance.BeginGame();
 
         //BeginGame();
     }
@@ -91,8 +102,8 @@ public class GameManager : MonoBehaviour
         mazeInstance2.transform.position=new Vector3(6,0,0);
         //yield return StartCoroutine(mazeInstance.Generate());
         playerInstance = Instantiate(playerPrefab) as Player;
-        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 0)).transform.localPosition;  
-        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(0, 0)));
+        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 2)).transform.localPosition;  
+        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(0, 2)));
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
@@ -112,8 +123,8 @@ public class GameManager : MonoBehaviour
         mazeInstance2.transform.position=new Vector3(6,0,0);
         //yield return StartCoroutine(mazeInstance.Generate());
         playerInstance = Instantiate(playerPrefab) as Player;
-        playerInstance.transform.localPosition = mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position; 
-        playerInstance.currentCell= mazeInstance2.GetCell(new IntVector2(0, 0));;
+        playerInstance.transform.localPosition = mazeInstance2.GetCell(new IntVector2(0, 2)).transform.position; 
+        playerInstance.currentCell= mazeInstance2.GetCell(new IntVector2(0, 2));;
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
@@ -126,15 +137,15 @@ public class GameManager : MonoBehaviour
         //Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
         csv="Maze_1";
         mazeInstance = Instantiate(mazePrefab) as Maze;
-        csv="Maze_3";
+        csv="Maze_4";
         mazeInstance2 = Instantiate(mazePrefab2) as Maze;
         mazeInstance.Generate();
         mazeInstance2.Generate();
         mazeInstance2.transform.position=new Vector3(6,0,0);
         //yield return StartCoroutine(mazeInstance.Generate());
         playerInstance = Instantiate(playerPrefab) as Player;
-        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 0)).transform.localPosition;  
-        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(0, 0)));
+        playerInstance.transform.localPosition = mazeInstance.GetCell(new IntVector2(0, 2)).transform.localPosition;  
+        playerInstance.SetLocation(mazeInstance.GetCell(new IntVector2(0, 2)));
         //Camera.main.clearFlags = CameraClearFlags.Depth;
         //Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
         Camera.main.rect = new Rect(0f, 0f, 0f, 0f);
@@ -146,14 +157,42 @@ public class GameManager : MonoBehaviour
         if (isGameover)
         {
             EndGame();
+
+            if (Input.GetKeyDown(KeyCode.Space)) //normal mode 
+            {
+                RestartGame();
+            }
+        }
+
+        //phase
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        {
+            if(phase==1)
+            {
+                phase1.gameObject.SetActive(false);
+                
+                
+
+            }
+            else if(phase==2)
+            {
+                phase2.gameObject.SetActive(false);
+
+            }
+            else if(phase==3)
+            {
+                phase3.gameObject.SetActive(false);
+
+            }
+
+
+
         }
 
         scoreText.text = "Score: " + score;
 
-        if (Input.GetKeyDown(KeyCode.Space)) //normal mode 
-        {
-            RestartGame();
-        }
+        
         
         // else if (Input.GetKeyDown(KeyCode.Z))
         // {
@@ -205,9 +244,11 @@ public class GameManager : MonoBehaviour
     {
         isGameover = false;
 
+
         if(score>=12){
             score = 0;
-            step+=1;
+            step=0;
+            phase+=1;
 
         }
         
@@ -220,33 +261,42 @@ public class GameManager : MonoBehaviour
             Destroy(playerInstance.gameObject);
         }
 
-        Debug.Log("step"+step);
+        Debug.Log("phase"+phase+"\nstep: "+step);
 
-        if(step==1)
+        if(phase==1)
         {
+            step+=1;
             BeginGame();
 
-        }else if(step ==2)
+        }else if(phase ==2)
         {
+            
+            //Relearning
+            step+=1;
+            if(step==1)
+            {
+                phase2.gameObject.SetActive(true);
 
-            sw.WriteLine("Phase2 : Relearning");
-   
+            }
             RelearningReward();
 
 
-        }else if(step ==3)
+        }else if(phase ==3)
         {
 
             //test
+            step+=1;
+            if(step==1)
+            {
+                phase3.gameObject.SetActive(true);
 
-            sw.WriteLine("Phase3 : Testing");
-   
+            }
             TestGame();
 
 
-        }else if(step==4){
+        }else if(phase==4){
 
-            sw.WriteLine("Phase3 : done");
+            done.gameObject.SetActive(true);
 
             //한 phase 가 끝남 test 저장 
             sw.Flush();

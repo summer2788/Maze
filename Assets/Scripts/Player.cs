@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         isPick = true;
         isThrow= true;
         
-        GameManager.instance.sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item");
+        
         //StartCoroutine("CountTime",2);
         currentDirection=MazeDirection.South;
         Debug.Log(currentDirection);
@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
             {
                 if(isMove & isTurn){
                 isMove=false;
-                GameManager.instance.sw.WriteLine("4" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("4" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
                 Move(currentDirection);
 
                 }
@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
                 tempDirection = currentDirection.GetNextCounterclockwise();
                 Debug.Log(tempDirection);
                 Look(currentDirection.GetNextCounterclockwise());
-                GameManager.instance.sw.WriteLine("1" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("1" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
 
                 }
                 
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
                 tempDirection = currentDirection.GetNextClockwise();
                 Debug.Log(tempDirection);
                 Look(currentDirection.GetNextClockwise());
-                GameManager.instance.sw.WriteLine("2" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("2" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
 
                 }
                 
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
                         itemName = item.name;
                         throwItem();
                     }
-                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
                 }
             }
 
@@ -358,7 +358,7 @@ public class Player : MonoBehaviour
                 item = other.gameObject;
                 itemName = other.name;
                 pickUp(item);
-                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
                 GameManager.instance.isGameover=true;
 
                
@@ -368,7 +368,7 @@ public class Player : MonoBehaviour
                 item = other.gameObject;
                 itemName = other.name;
                 pickUp(item);
-                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName);
+                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
                 GameManager.instance.isGameover=true;
 
 
