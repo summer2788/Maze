@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     private string direction;
     private string itemName;
+
     
     
     
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
         isTurn = true;
         isPick = true;
         isThrow= true;
-        
+
         
         //StartCoroutine("CountTime",2);
         currentDirection=MazeDirection.South;
@@ -331,45 +332,74 @@ public class Player : MonoBehaviour
             
             if(other.name=="portal1" )
             {
-                
-                StopCoroutine(GameManager.instance.playerInstance.coroutine);
-                GameManager.instance.playerInstance.gameObject.SetActive(false);
-                GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position;  
-                GameManager.instance.playerInstance.gameObject.SetActive(true);
-                GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0));
-                GameManager.instance.playerInstance.isMove=true;
-                StartCoroutine(coroutine);
+                if((GameManager.instance.step%2==1) ||  GameManager.instance.phase==3)
+                {
+                    StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                    GameManager.instance.playerInstance.gameObject.SetActive(false);
+                    GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position;  
+                    GameManager.instance.playerInstance.gameObject.SetActive(true);
+                    GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0));
+                    GameManager.instance.playerInstance.isMove=true;
+                    StartCoroutine(coroutine);
 
+                }
+                
                 
 
             }else if(other.name == "portal2")
             {
-             
-                StopCoroutine(GameManager.instance.playerInstance.coroutine);
-                GameManager.instance.playerInstance.gameObject.SetActive(false);
-                GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4)).transform.position;  
-                GameManager.instance.playerInstance.gameObject.SetActive(true);
-                GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4));
-                GameManager.instance.playerInstance.isMove=true;
-                //Debug.Log(coroutine);
-                StartCoroutine(coroutine);
+
+                if((GameManager.instance.step%2==0)|| GameManager.instance.phase==3)
+                {
+                    StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                    GameManager.instance.playerInstance.gameObject.SetActive(false);
+                    GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4)).transform.position;  
+                    GameManager.instance.playerInstance.gameObject.SetActive(true);
+                    GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4));
+                    GameManager.instance.playerInstance.isMove=true;
+                    //Debug.Log(coroutine);
+                    StartCoroutine(coroutine);
+
+                }
+
             }else if(other.name == " banana ")
             {
-                item = other.gameObject;
-                itemName = other.name;
-                pickUp(item);
-                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
-                GameManager.instance.isGameover=true;
+                if(GameManager.instance.itemcontrol>=2 || GameManager.instance.phase==3 )
+                {
+                    Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
+                    GameManager.instance.itemcontrol+=1;
 
+                    item = other.gameObject;
+                    itemName = other.name;
+                    pickUp(item);
+                    if(GameManager.instance.itemcontrol ==4)
+                    {
+                        GameManager.instance.itemcontrol=0;
+                    }
+                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+                    GameManager.instance.isGameover=true;
+                    
+
+                }
+                
                
             }
             else if(other.name == " burger ")
             {
-                item = other.gameObject;
-                itemName = other.name;
-                pickUp(item);
-                GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
-                GameManager.instance.isGameover=true;
+
+                if(GameManager.instance.itemcontrol<2 || GameManager.instance.phase==3 )
+                {
+                    Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
+                    GameManager.instance.itemcontrol+=1;
+
+                    item = other.gameObject;
+                    itemName = other.name;
+                    pickUp(item);
+                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+                    GameManager.instance.isGameover=true;
+
+                }
+                
 
 
             }

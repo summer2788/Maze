@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameoverText;
     public Text scoreText;
+    public Text instruction;
     public Image phase1;
     public Image phase2;
     public Image phase3;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public int score;
     public int phase;
     public int step;
+    public int itemcontrol;
     
 
     public string csv;
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         phase=1;
         step=1;
+        itemcontrol=0; //for phase 1 item control
         sw.WriteLine("Key" + "," + "Time" + "," + "Position" + "," + "direction" + "," + "item"+ "," + "phase"+ "," + "step"+ "," + "score");
        
         isGameover = false;
@@ -177,6 +180,7 @@ public class GameManager : MonoBehaviour
             }
             else if(phase==2)
             {
+                itemcontrol=0;
                 phase2.gameObject.SetActive(false);
 
             }
@@ -191,6 +195,45 @@ public class GameManager : MonoBehaviour
         }
 
         scoreText.text = "Score: " + score;
+
+        if(phase==1)
+        {
+            if(step%2==1)
+            {
+                if(itemcontrol<2)
+                {
+                    instruction.text = "Get the hamburger through green portal";
+                }else if(itemcontrol>=2)
+                {
+                    instruction.text = "Get the banana through green portal";
+                }
+
+            }
+            else if(step%2==0)
+            {
+                if(itemcontrol<2)
+                {
+                    instruction.text = "Get the hamburger through purple portal";
+                }else if(itemcontrol>=2)
+                {
+                    instruction.text = "Get the banana through purple portal";
+                }
+
+            }
+
+        }
+        else if(phase==2)
+        {
+             if(itemcontrol<2)
+                {
+                    instruction.text = "Get the hamburger";
+                }else if(itemcontrol>=2)
+                {
+                    instruction.text = "Get the banana";
+                }
+
+        }
+    
 
         
         
@@ -289,6 +332,7 @@ public class GameManager : MonoBehaviour
             if(step==1)
             {
                 phase3.gameObject.SetActive(true);
+                instruction.gameObject.SetActive(false);
 
             }
             TestGame();
