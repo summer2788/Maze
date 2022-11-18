@@ -7,10 +7,13 @@ public class Item : MonoBehaviour
 
     public IntVector2 coordinates;
 
-    private void OnTriggerEnter(Collider other)
-    {  
-         
-    }
+    // private void OnTriggerStay(Collider other)
+    // {  
+    //      if(Input.GetKeyDown(KeyCode.Alpha2))
+    //      {
+    //         Debug.Log(this.name);
+    //      }
+    // }
 
    
 

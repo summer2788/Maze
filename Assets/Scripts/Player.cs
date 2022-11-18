@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public bool isTurn;
     public bool isPick;
     private bool isThrow;
-    private bool isContact; //아이템과의 접촉 여부
+    private int isContact; //아이템과의 접촉 여부 portal1, portal2, banana, hamburger 1 2 3 4
 
     private string direction;
     private string itemName;
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     {
         pickedlist = new Stack<GameObject>();
 
+        isContact=0;
         isMove = true;
         isTurn = true;
         isPick = true;
@@ -218,21 +219,96 @@ public class Player : MonoBehaviour
                 }
                 
             }
-
-            if (!isContact)
+            if(Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (Input.GetKeyDown(KeyCode.Alpha3)) //버리기(toggle)
+                if(isContact!=0)
                 {
-                    if (pickedlist.Count != 0)
+                    if(isContact==1)
                     {
-                        
-                        item = pickedlist.Peek().gameObject;
-                        itemName = item.name;
-                        throwItem();
+
+                        if((GameManager.instance.step%2==1) ||  GameManager.instance.phase==3)
+                        {
+                            StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                            GameManager.instance.playerInstance.gameObject.SetActive(false);
+                            GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position;  
+                            GameManager.instance.playerInstance.gameObject.SetActive(true);
+                            GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0));
+                            GameManager.instance.playerInstance.isMove=true;
+                            StartCoroutine(coroutine);
+                            isContact = 0;
+
+                        }
+
                     }
-                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+                    else if(isContact==2)
+                    {
+                        if((GameManager.instance.step%2==0)|| GameManager.instance.phase==3)
+                        {
+                            StopCoroutine(GameManager.instance.playerInstance.coroutine);
+                            GameManager.instance.playerInstance.gameObject.SetActive(false);
+                            GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4)).transform.position;  
+                            GameManager.instance.playerInstance.gameObject.SetActive(true);
+                            GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4));
+                            GameManager.instance.playerInstance.isMove=true;
+                            //Debug.Log(coroutine);
+                            StartCoroutine(coroutine);
+                            isContact = 0;
+
+                        }
+
+                    }else if(isContact==3)
+                    {
+
+                        if(GameManager.instance.itemcontrol>=2 || GameManager.instance.phase==3 )
+                        {
+                            Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
+                            GameManager.instance.itemcontrol+=1;
+
+                            
+                            pickUp(item);
+                            if(GameManager.instance.itemcontrol ==4)
+                            {
+                                GameManager.instance.itemcontrol=0;
+                            }
+                            GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+                            GameManager.instance.isGameover=true;
+                            
+
+                        }
+
+                    }else if(isContact==4)
+                    {
+
+                        if(GameManager.instance.itemcontrol<2 || GameManager.instance.phase==3 )
+                        {
+                            Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
+                            GameManager.instance.itemcontrol+=1;
+
+                         
+                            pickUp(item);
+                            GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+                            GameManager.instance.isGameover=true;
+
+                        }
+
+                    }
                 }
             }
+
+            // if (!isContact)
+            // {
+            //     if (Input.GetKeyDown(KeyCode.Alpha3)) //버리기(toggle)
+            //     {
+            //         if (pickedlist.Count != 0)
+            //         {
+                        
+            //             item = pickedlist.Peek().gameObject;
+            //             itemName = item.name;
+            //             throwItem();
+            //         }
+            //         GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
+            //     }
+            // }
 
             //  if (currentCell.name == "Maze Cell 4 4")
             // {
@@ -285,7 +361,7 @@ public class Player : MonoBehaviour
     {
         pickedlist.Push(item);
         item.SetActive(false);
-        isContact = false;
+      
         if(item.name == " banana ")
         {
 
@@ -323,101 +399,83 @@ public class Player : MonoBehaviour
         //     GameManager.instance.isGameover=true;
         // }
 
+        
 
-        if (Input.GetKeyDown(KeyCode.Alpha2)) // teleport 
-        {
-            //Debug.Log(1);
-
+        
             
             
             if(other.name=="portal1" )
             {
-                if((GameManager.instance.step%2==1) ||  GameManager.instance.phase==3)
-                {
-                    StopCoroutine(GameManager.instance.playerInstance.coroutine);
-                    GameManager.instance.playerInstance.gameObject.SetActive(false);
-                    GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0)).transform.position;  
-                    GameManager.instance.playerInstance.gameObject.SetActive(true);
-                    GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 0));
-                    GameManager.instance.playerInstance.isMove=true;
-                    StartCoroutine(coroutine);
 
-                }
-                
+                isContact=1;
                 
 
             }else if(other.name == "portal2")
             {
-
-                if((GameManager.instance.step%2==0)|| GameManager.instance.phase==3)
-                {
-                    StopCoroutine(GameManager.instance.playerInstance.coroutine);
-                    GameManager.instance.playerInstance.gameObject.SetActive(false);
-                    GameManager.instance.playerInstance.transform.localPosition = GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4)).transform.position;  
-                    GameManager.instance.playerInstance.gameObject.SetActive(true);
-                    GameManager.instance.playerInstance.currentCell=GameManager.instance.mazeInstance2.GetCell(new IntVector2(0, 4));
-                    GameManager.instance.playerInstance.isMove=true;
-                    //Debug.Log(coroutine);
-                    StartCoroutine(coroutine);
-
-                }
+                isContact=2;
+                
 
             }else if(other.name == " banana ")
             {
-                if(GameManager.instance.itemcontrol>=2 || GameManager.instance.phase==3 )
-                {
-                    Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
-                    GameManager.instance.itemcontrol+=1;
+                
+                isContact=3;
+                item = other.gameObject;
+                itemName = other.name;
+               
+            }
+            else if(other.name == " burger ")
+            {
 
-                    item = other.gameObject;
+                  isContact=4;
+                  item = other.gameObject;
                     itemName = other.name;
-                    pickUp(item);
-                    if(GameManager.instance.itemcontrol ==4)
-                    {
-                        GameManager.instance.itemcontrol=0;
-                    }
-                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
-                    GameManager.instance.isGameover=true;
-                    
 
-                }
+
+            }
+
+
+        
+    }
+
+
+  
+
+    private void OnTriggerExit(Collider other)
+    {
+         if(other.name=="portal1" )
+            {
+
+                isContact = 0;
+                Debug.Log(isContact);
+
+            }else if(other.name == "portal2")
+            {
+
+                isContact = 0;
+                Debug.Log(isContact);
+
+        
+
+            }else if(other.name == " banana ")
+            {
+
+                isContact = 0;
+               
                 
                
             }
             else if(other.name == " burger ")
             {
 
-                if(GameManager.instance.itemcontrol<2 || GameManager.instance.phase==3 )
-                {
-                    Debug.Log("itemcontrol: "+GameManager.instance.itemcontrol);
-                    GameManager.instance.itemcontrol+=1;
+                isContact = 0;
 
-                    item = other.gameObject;
-                    itemName = other.name;
-                    pickUp(item);
-                    GameManager.instance.sw.WriteLine("3" + "," + Time.time + "," + currentCell.name + "," + currentDirection + "," + itemName+ "," + GameManager.instance.phase+ "," + GameManager.instance.step+"," + GameManager.instance.score);
-                    GameManager.instance.isGameover=true;
-
-                }
-                
+               
 
 
             }
-           
-        }
+
 
         
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        isContact = true;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isContact = false;
     }
     
     
